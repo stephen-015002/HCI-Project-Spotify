@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import useAuth from './useAuth'
 import Player from './Player'
 import TrackSearchResult from './TrackSearchResult'
+import TopTracks from './TopTracks'
 import {Container, Form} from 'react-bootstrap'
 import SpotifyWebApi from 'spotify-web-api-node'
 import axios from 'axios'
@@ -16,12 +17,13 @@ export default function Dashboard({code }) {
     const [searchResults, setSearchResults] = useState([])
     const [playingTrack, setPlayingTrack] = useState()
     const [lyrics, setLyrics] = useState("")
+    const [topTracks, setTopTracks] = useState([])
 
     function chooseTrack(track) {
         setPlayingTrack(track)
         setSearch('')
     }
-
+    
     useEffect(() => {
         if(!playingTrack) return
 
@@ -38,6 +40,26 @@ export default function Dashboard({code }) {
     useEffect(() => {
         if(!accessToken) return
         spotifyApi.setAccessToken(accessToken)
+    }, [accessToken])
+
+    useEffect(() => {
+        if(!accessToken) return
+        spotifyApi.getMyTopTracks({limit: 50}).then(res => {
+            setTopTracks(res.body.items.map(track => {
+                const smallestAlbumImage = track.album.images.reduce((smallest, image) => {
+                    if (image.height < smallest.height) return image
+                    return smallest
+                }, track.album.images[0])
+                return {
+                    artist: track.artists[0].name,
+                    title: track.name,
+                    uri: track.uri,
+                    albumUrl: smallestAlbumImage.url,
+                    id: track.id
+                }
+            }))
+        })
+
     }, [accessToken])
 
     useEffect(() => {
@@ -76,7 +98,11 @@ export default function Dashboard({code }) {
             ))}
             {searchResults.length === 0 && (
                 <div className="text-center" style={{whiteSpace: "pre"}}>
-                    {lyrics} 
+                    {topTracks.map(track => (
+                        <TopTracks
+                        track={track}
+                        key={track.uri}/>
+                    ))}
                     </div>
             )}
         </div>
