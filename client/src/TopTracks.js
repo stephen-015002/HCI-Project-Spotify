@@ -7,6 +7,7 @@ export default function topTracks( {track}) {
         <div className='ml-3'>
             <div>{track.title}</div>
             <div className='text-muted'>{track.artist}</div>
+            <div className='text-muted'>{track.id}</div>
         </div>
     </div>
   )

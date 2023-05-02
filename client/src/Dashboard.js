@@ -18,6 +18,7 @@ export default function Dashboard({code }) {
     const [playingTrack, setPlayingTrack] = useState()
     const [lyrics, setLyrics] = useState("")
     const [topTracks, setTopTracks] = useState([])
+    const [trackFeatures, setTrackFeatures] = useState({})
 
     function chooseTrack(track) {
         setPlayingTrack(track)
@@ -55,12 +56,27 @@ export default function Dashboard({code }) {
                     title: track.name,
                     uri: track.uri,
                     albumUrl: smallestAlbumImage.url,
-                    id: track.id
+                    id: track.id,
                 }
             }))
         })
-
     }, [accessToken])
+
+    useEffect(() => {
+        if(!accessToken) return
+        if(!topTracks) return
+        spotifyApi.getAudioFeaturesForTracks(topTracks.map(track => track.id)).then(res => {
+            setTrackFeatures(res.body.audio_features.map(track => {
+                return {
+                    id: track.id,
+                    acousticness: track.acousticness,
+                    danceability: track.danceability,
+                    energy: track.energy,
+                    instrumentalness: track.instrumentalness
+                }
+            }))
+        })        
+    }, [accessToken, topTracks])
 
     useEffect(() => {
         if(!search) return setSearchResults([])
