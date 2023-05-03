@@ -18,7 +18,7 @@ export default function Dashboard({code }) {
     const [playingTrack, setPlayingTrack] = useState()
     const [lyrics, setLyrics] = useState("")
     const [topTracks, setTopTracks] = useState([])
-    const [trackFeatures, setTrackFeatures] = useState({})
+    const [trackFeatures, setTrackFeatures] = useState([])
 
     function chooseTrack(track) {
         setPlayingTrack(track)
@@ -51,6 +51,7 @@ export default function Dashboard({code }) {
                     if (image.height < smallest.height) return image
                     return smallest
                 }, track.album.images[0])
+                // try to put features here
                 return {
                     artist: track.artists[0].name,
                     title: track.name,
@@ -75,7 +76,7 @@ export default function Dashboard({code }) {
                     instrumentalness: track.instrumentalness
                 }
             }))
-        })        
+        })
     }, [accessToken, topTracks])
 
     useEffect(() => {
