@@ -51,7 +51,7 @@ export default function Dashboard({code }) {
                     if (image.height < smallest.height) return image
                     return smallest
                 }, track.album.images[0])
-                // try to put features here
+
                 return {
                     artist: track.artists[0].name,
                     title: track.name,
@@ -65,15 +65,16 @@ export default function Dashboard({code }) {
 
     useEffect(() => {
         if(!accessToken) return
-        if(!topTracks) return
+        if(topTracks === []) return
         spotifyApi.getAudioFeaturesForTracks(topTracks.map(track => track.id)).then(res => {
             setTrackFeatures(res.body.audio_features.map(track => {
                 return {
-                    id: track.id,
-                    acousticness: track.acousticness,
-                    danceability: track.danceability,
-                    energy: track.energy,
-                    instrumentalness: track.instrumentalness
+                    id: track?.id,
+                    acousticness: track?.acousticness,
+                    danceability: track?.danceability,
+                    energy: track?.energy,
+                    instrumentalness: track?.instrumentalness
+
                 }
             }))
         })
@@ -115,11 +116,11 @@ export default function Dashboard({code }) {
             ))}
             {searchResults.length === 0 && (
                 <div className="text-center" style={{whiteSpace: "pre"}}>
-                    {topTracks.map(track => (
-                        <TopTracks
-                        track={track}
-                        key={track.uri}/>
-                    ))}
+                        {topTracks.map((x, i) => [x, trackFeatures[i]]).map(track => (
+                            <TopTracks
+                            track={track}
+                            />
+                        ))}
                     </div>
             )}
         </div>
