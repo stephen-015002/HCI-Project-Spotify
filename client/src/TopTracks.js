@@ -20,7 +20,7 @@ export default function topTracks( {track} ) {
                 <div className='text-muted'>{track[1].energy}</div>
             )}
             {track[1] !== undefined && (
-                <div className='text-muted'>{track[1].instrumentalness}</div>
+                <div className='text-muted'>{track[1].valence}</div>
             )}
 
         </div>

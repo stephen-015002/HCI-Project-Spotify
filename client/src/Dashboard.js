@@ -3,7 +3,7 @@ import useAuth from './useAuth'
 import Player from './Player'
 import TrackSearchResult from './TrackSearchResult'
 import TopTracks from './TopTracks'
-import {Container, Form} from 'react-bootstrap'
+import {Button, Container, Form} from 'react-bootstrap'
 import SpotifyWebApi from 'spotify-web-api-node'
 import axios from 'axios'
 
@@ -11,7 +11,7 @@ const spotifyApi = new SpotifyWebApi({
     clientId: '5b211a2d15e54da686a08946810f4947'
 })
 
-export default function Dashboard({code }) {
+export default function Dashboard({code}) {
     const accessToken = useAuth(code)
     const [search, setSearch] = useState("")
     const [searchResults, setSearchResults] = useState([])
@@ -23,6 +23,11 @@ export default function Dashboard({code }) {
     function chooseTrack(track) {
         setPlayingTrack(track)
         setSearch('')
+    }
+    function handleLogout() {
+        sessionStorage.removeItem(accessToken)
+        sessionStorage.removeItem(code)
+        window.location.reload()
     }
     
     useEffect(() => {
@@ -73,7 +78,7 @@ export default function Dashboard({code }) {
                     acousticness: track?.acousticness,
                     danceability: track?.danceability,
                     energy: track?.energy,
-                    instrumentalness: track?.instrumentalness
+                    valence: track?.valence
 
                 }
             }))
@@ -107,6 +112,7 @@ export default function Dashboard({code }) {
   return (
     <Container className="d-flex flex-column py-2" style={{height: '100vh'}}>
         <Form.Control type='search' placeholder='Search Songs/Artists' value={search} onChange={e => setSearch(e.target.value)} />
+        <Button id='logout-button' onClick={handleLogout}> Logout </Button>
         <div className='flex-grow-1 my-2' style={{overflowY: 'auto'}}>
             {searchResults.map(track => (
                 <TrackSearchResult 
