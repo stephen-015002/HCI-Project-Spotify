@@ -19,6 +19,7 @@ export default function Dashboard({code}) {
     const [lyrics, setLyrics] = useState("")
     const [topTracks, setTopTracks] = useState([])
     const [trackFeatures, setTrackFeatures] = useState([])
+    const [trackAnalytics, setTrackAnalytics] = useState([])
 
     function chooseTrack(track) {
         setPlayingTrack(track)
@@ -108,6 +109,13 @@ export default function Dashboard({code}) {
         return () => cancel = true
     }, [search, accessToken])
 
+    useEffect(() => {
+        if(topTracks === []) return
+        if(trackFeatures === []) return
+        setTrackAnalytics(topTracks.map((x, i) => [x, trackFeatures[i]]))
+
+    }, [topTracks, trackFeatures])
+
 
   return (
     <Container className="d-flex flex-column py-2" style={{height: '100vh'}}>
@@ -122,7 +130,7 @@ export default function Dashboard({code}) {
             ))}
             {searchResults.length === 0 && (
                 <div className="text-center" style={{whiteSpace: "pre"}}>
-                        {topTracks.map((x, i) => [x, trackFeatures[i]]).map(track => (
+                        {trackAnalytics.map(track => (
                             <TopTracks
                             track={track}
                             />
