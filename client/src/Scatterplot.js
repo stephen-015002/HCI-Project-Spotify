@@ -6,7 +6,10 @@ import { Tooltip } from './Tooltip';
 
 const MARGIN = { top: 60, right: 60, bottom: 60, left: 60}
 
-export function Scatterplot({ width, height, data}) {
+export function Scatterplot({ width, height, data, chooseTrack}) {
+    function handlePlay(track) {
+        chooseTrack(track)
+    }
     const boundsWidth = width - MARGIN.right - MARGIN.left;
     const boundsHeight = height - MARGIN.top - MARGIN.bottom;
     const [hovered, setHovered] = useState(null)
@@ -34,6 +37,7 @@ export function Scatterplot({ width, height, data}) {
                     albumUrl: d.albumUrl
                 })}
                 onMouseLeave={() => setHovered(null)}
+                onMouseDown={() => handlePlay(d)}
             />
         )
     })

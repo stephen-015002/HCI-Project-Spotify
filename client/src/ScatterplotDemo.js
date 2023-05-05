@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Scatterplot } from './Scatterplot'
 
 
-export default function ScatterplotDemo( {tracks} ){
+export default function ScatterplotDemo( {tracks, chooseTrack} ){
     /* parse the track here */
     const [data, setData] = useState([])
 
@@ -26,7 +26,7 @@ export default function ScatterplotDemo( {tracks} ){
 
     console.log(data)
     return(
-        <Scatterplot data={data} width={700} height={400} />
+        <Scatterplot data={data} width={700} height={700} chooseTrack={chooseTrack} />
     )
 
 }

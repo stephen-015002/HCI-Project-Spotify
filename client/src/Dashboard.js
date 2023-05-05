@@ -131,7 +131,7 @@ export default function Dashboard({code}) {
             ))}
             {searchResults.length === 0 && (
                 <div>
-                    <ScatterplotDemo tracks={trackAnalytics}/>
+                    <ScatterplotDemo tracks={trackAnalytics} chooseTrack={chooseTrack}/>
                 </div>
             )}
             {searchResults.length === 0 && (
