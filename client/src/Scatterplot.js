@@ -14,8 +14,8 @@ export function Scatterplot({ width, height, data, chooseTrack}) {
     const boundsHeight = height - MARGIN.top - MARGIN.bottom;
     const [hovered, setHovered] = useState(null)
 
-    const yScale = d3.scaleLinear().domain([0,1]).range([boundsHeight, 0])
-    const xScale = d3.scaleLinear().domain([0,1]).range([0, boundsWidth ])
+    const yScale = d3.scaleLinear().domain([-0.05,1]).range([boundsHeight, 0])
+    const xScale = d3.scaleLinear().domain([-0.05,1]).range([0, boundsWidth])
 
     const allShapes = data.map((d, i) => {
         return(
@@ -49,7 +49,7 @@ export function Scatterplot({ width, height, data, chooseTrack}) {
                 <g 
                     width={boundsWidth}
                     height={boundsHeight}
-                    transform={`translate(${[MARGIN.left, MARGIN.top].join(',')})`}
+                    transform={`translate(${[MARGIN.left, MARGIN.top].join(",")})`}
                 >
                     {/* Y axis */}
                     <AxisLeft yScale={yScale} pixelsPerTick={40} width={boundsWidth}/>

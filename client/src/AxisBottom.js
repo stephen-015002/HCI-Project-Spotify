@@ -6,7 +6,7 @@ export function AxisBottom({xScale, pixelsPerTick, height}) {
     const range = xScale.range();
 
     const ticks = useMemo(() => {
-        const width = range[0] - range[1];
+        const width = range[1] - range[0];
         const numberOfTicksTarget = Math.floor(width / pixelsPerTick);
 
         return xScale.ticks(numberOfTicksTarget).map((value) => ({
@@ -21,7 +21,7 @@ export function AxisBottom({xScale, pixelsPerTick, height}) {
             {ticks.map(({value, xOffset}) => (
                 <g 
                     key={value}
-                    transform={`translate(0, ${xOffset})`}
+                    transform={`translate(${xOffset}, 0)`}
                     shapeRendering={'crispEdges'}
                 >
                     <line
