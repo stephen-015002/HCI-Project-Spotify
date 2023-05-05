@@ -1,9 +1,8 @@
 import { useMemo } from 'react';
-import { scaleLinear } from 'd3';
 
 const TICK_LENGTH = 10;
 
-export default function AxisLeft({xScale, pixelsPerTick, height}) {
+export function AxisBottom({xScale, pixelsPerTick, height}) {
     const range = xScale.range();
 
     const ticks = useMemo(() => {

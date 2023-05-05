@@ -1,28 +1,39 @@
 import * as d3 from 'd3';
 import { AxisLeft } from './AxisLeft';
 import { AxisBottom } from './AxisBottom';
+import { useState } from 'react';
+import { Tooltip } from './Tooltip';
 
 const MARGIN = { top: 60, right: 60, bottom: 60, left: 60}
 
-export default function Scatterplot({ width, height, data}) {
+export function Scatterplot({ width, height, data}) {
     const boundsWidth = width - MARGIN.right - MARGIN.left;
     const boundsHeight = height - MARGIN.top - MARGIN.bottom;
+    const [hovered, setHovered] = useState(null)
 
-    const yScale = d3.scaleLinear().domain([0,10]).range([boundsHeight, 0])
-    const xScale = d3.scaleLinear().domain([0,10]).range([0, boundsWidth])
+    const yScale = d3.scaleLinear().domain([0,1]).range([boundsHeight, 0])
+    const xScale = d3.scaleLinear().domain([0,1]).range([0, boundsWidth ])
 
     const allShapes = data.map((d, i) => {
         return(
             <circle 
                 key={i}
                 r={13}
-                cx={xScale(d.y)}
-                cy={yScale(d.x)}
+                cx={xScale(d?.acousticness)}
+                cy={yScale(d?.danceability)}
                 opacity={1}
                 stroke='#cb1dd1'
                 fill='cd1dd1'
                 fillOpacity={0.2}
                 strokeWidth={1}
+                onMouseEnter={() => setHovered({
+                    xPos: xScale(d?.acousticness),
+                    yPos: yScale(d?.danceability),
+                    title: d.title,
+                    artist: d.artist,
+                    albumUrl: d.albumUrl
+                })}
+                onMouseLeave={() => setHovered(null)}
             />
         )
     })
@@ -50,6 +61,21 @@ export default function Scatterplot({ width, height, data}) {
                     {allShapes}
                 </g>
             </svg>
+            {/* Tooltip */}
+            <div
+                style={{
+                    width: boundsWidth,
+                    height: boundsHeight,
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    pointerEvents: "none",
+                    marginLeft: MARGIN.left,
+                    marginTop: MARGIN.top,
+                }}
+            >
+                <Tooltip interactionData={hovered} />
+            </div>
         </div>
     )
 

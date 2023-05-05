@@ -3,6 +3,7 @@ import useAuth from './useAuth'
 import Player from './Player'
 import TrackSearchResult from './TrackSearchResult'
 import TopTracks from './TopTracks'
+import ScatterplotDemo from './ScatterplotDemo'
 import {Button, Container, Form} from 'react-bootstrap'
 import SpotifyWebApi from 'spotify-web-api-node'
 import axios from 'axios'
@@ -128,6 +129,11 @@ export default function Dashboard({code}) {
                 key={track.uri} 
                 chooseTrack={chooseTrack}/>
             ))}
+            {searchResults.length === 0 && (
+                <div>
+                    <ScatterplotDemo tracks={trackAnalytics}/>
+                </div>
+            )}
             {searchResults.length === 0 && (
                 <div className="text-center" style={{whiteSpace: "pre"}}>
                         {trackAnalytics.map(track => (
