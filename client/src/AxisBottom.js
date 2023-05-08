@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 const TICK_LENGTH = 10;
 
-export function AxisBottom({xScale, pixelsPerTick, height}) {
+export default function AxisBottom({xScale, pixelsPerTick, height}) {
     const range = xScale.range();
 
     const ticks = useMemo(() => {

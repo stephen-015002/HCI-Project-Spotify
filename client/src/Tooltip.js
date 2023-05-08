@@ -1,6 +1,6 @@
 import styles from './tooltip.module.css'
 
-export function Tooltip({interactionData}) {
+export default function Tooltip({interactionData}) {
     if(!interactionData) return null;
 
     return(

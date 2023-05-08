@@ -1,12 +1,12 @@
 import * as d3 from 'd3';
-import { AxisLeft } from './AxisLeft';
-import { AxisBottom } from './AxisBottom';
+import AxisLeft from './AxisLeft';
+import AxisBottom from './AxisBottom';
 import { useState } from 'react';
-import { Tooltip } from './Tooltip';
+import Tooltip from './Tooltip';
 
 const MARGIN = { top: 60, right: 60, bottom: 60, left: 60}
 
-export function Scatterplot({ width, height, data, chooseTrack}) {
+export default function Scatterplot({ width, height, data, chooseTrack}) {
     function handlePlay(track) {
         chooseTrack(track)
     }

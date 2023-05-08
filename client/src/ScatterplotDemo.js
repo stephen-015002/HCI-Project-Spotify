@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Scatterplot } from './Scatterplot'
+import Scatterplot from './Scatterplot'
 
 
 export default function ScatterplotDemo( {tracks, chooseTrack} ){
