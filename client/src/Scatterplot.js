@@ -25,8 +25,8 @@ export default function Scatterplot({ width, height, data, chooseTrack}) {
                 cx={xScale(d?.acousticness)}
                 cy={yScale(d?.danceability)}
                 opacity={1}
-                stroke='#cb1dd1'
-                fill='cd1dd1'
+                stroke= {(d.color)}
+                fill={(d.color)}
                 fillOpacity={0.2}
                 strokeWidth={1}
                 onMouseEnter={() => setHovered({

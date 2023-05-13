@@ -14,6 +14,7 @@ export default function ScatterplotDemo( {tracks, chooseTrack} ){
                 uri: track[0].uri,
                 albumUrl: track[0].albumUrl,
                 id: track[0].id,
+                color: track[0].color,
                 acousticness: track[1]?.acousticness,
                 danceability: track[1]?.danceability,
                 energy: track[1]?.energy,

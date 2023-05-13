@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import useAuth from './useAuth'
 import Player from './Player'
 import TrackSearchResult from './TrackSearchResult'
@@ -30,6 +30,24 @@ export default function Dashboard({code}) {
         sessionStorage.removeItem(accessToken)
         sessionStorage.removeItem(code)
         window.location.reload()
+    }
+    function addToTopTracks(track) {
+        var tempTracks = topTracks;
+        tempTracks.push(track)
+        setTopTracks(tempTracks)
+        setSearch('')
+        spotifyApi.getAudioFeaturesForTracks(topTracks.map(track => track.id)).then(res => {
+            setTrackFeatures(res.body.audio_features.map(track => {
+                return {
+                    id: track?.id,
+                    acousticness: track?.acousticness,
+                    danceability: track?.danceability,
+                    energy: track?.energy,
+                    valence: track?.valence
+
+                }
+            }))
+        })
     }
     
     useEffect(() => {
@@ -65,6 +83,7 @@ export default function Dashboard({code}) {
                     uri: track.uri,
                     albumUrl: smallestAlbumImage.url,
                     id: track.id,
+                    color: '#cb1dd1'
                 }
             }))
         })
@@ -103,7 +122,9 @@ export default function Dashboard({code}) {
                     artist: track.artists[0].name,
                     title: track.name,
                     uri: track.uri,
-                    albumUrl: smallestAlbumImage.url
+                    albumUrl: smallestAlbumImage.url,
+                    id: track.id,
+                    color: '#6689c6'
                 }
             }))
         })
@@ -127,7 +148,7 @@ export default function Dashboard({code}) {
                 <TrackSearchResult 
                 track={track} 
                 key={track.uri} 
-                chooseTrack={chooseTrack}/>
+                addToTopTracks={addToTopTracks}/>
             ))}
             {searchResults.length === 0 && (
                 <div>
