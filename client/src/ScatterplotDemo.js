@@ -26,8 +26,7 @@ export default function ScatterplotDemo( {tracks, chooseTrack} ){
         }))
 
     }, [tracks])
-
-    console.log(data)
+    
     return(
         <>
         <ToggleButtonGroup type="radio" name="options" defaultValue={1}>

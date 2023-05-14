@@ -179,18 +179,25 @@ export default function Dashboard({code}) {
                 addToTopTracks={addToTopTracks}/>
             ))}
             {searchResults.length === 0 && (
+                <>
+                <h1 style={{color: '#D1D4C9'}}> My Track Analytics</h1>
                 <div>
                     <ScatterplotDemo tracks={trackAnalytics} chooseTrack={chooseTrack}/>
                 </div>
+                </>
             )}
-            {searchResults.length === 0 && (
+            {searchResults.length === 0 && ( <>
+                <div>
+                    <h1 style={{color: '#D1D4C9'}}> My Top Songs</h1>
+                </div>
                 <div className="text-center" style={{whiteSpace: "pre"}}>
                         {trackAnalytics.map(track => (
                             <TopTracks
                             track={track}
                             />
                         ))}
-                    </div>
+                </div>
+                </>
             )}
         </div>
         <div><Player accessToken={accessToken} trackUri={playingTrack?.uri} /></div>
