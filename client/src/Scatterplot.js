@@ -6,7 +6,7 @@ import Tooltip from './Tooltip';
 
 const MARGIN = { top: 60, right: 60, bottom: 60, left: 60}
 
-export default function Scatterplot({ width, height, data, chooseTrack}) {
+export default function Scatterplot({ width, height, data, chooseTrack, setting}) {
     function handlePlay(track) {
         chooseTrack(track)
     }
@@ -18,20 +18,29 @@ export default function Scatterplot({ width, height, data, chooseTrack}) {
     const xScale = d3.scaleLinear().domain([-0.05,1]).range([0, boundsWidth])
 
     const allShapes = data.map((d, i) => {
+        var xValue, yValue
+        if(setting === '1') {
+            xValue = d?.acousticness
+            yValue = d?.danceability
+        }
+        else {
+            xValue = d?.energy
+            yValue = d?.valence
+        }
         return(
             <circle 
                 key={i}
-                r={13}
-                cx={xScale(d?.acousticness)}
-                cy={yScale(d?.danceability)}
+                r={8}
+                cx={xScale(xValue)}
+                cy={yScale(yValue)}
                 opacity={1}
                 stroke= {(d.color)}
                 fill={(d.color)}
-                fillOpacity={0.2}
+                fillOpacity={0.5}
                 strokeWidth={1}
                 onMouseEnter={() => setHovered({
-                    xPos: xScale(d?.acousticness),
-                    yPos: yScale(d?.danceability),
+                    xPos: xScale(xValue),
+                    yPos: yScale(yValue),
                     title: d.title,
                     artist: d.artist,
                     albumUrl: d.albumUrl

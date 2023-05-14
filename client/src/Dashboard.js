@@ -24,8 +24,8 @@ export default function Dashboard({code}) {
 
     function chooseTrack(track) {
         setPlayingTrack(track)
-        setSearch('')
     }
+    
     function handleLogout() {
         sessionStorage.removeItem(accessToken)
         sessionStorage.removeItem(code)
@@ -45,6 +45,27 @@ export default function Dashboard({code}) {
                     energy: track?.energy,
                     valence: track?.valence
 
+                }
+            }))
+        })
+    }
+
+    function resetTopTracks() {
+        if(!accessToken) return
+        spotifyApi.getMyTopTracks({limit: 50}).then(res => {
+            setTopTracks(res.body.items.map(track => {
+                const smallestAlbumImage = track.album.images.reduce((smallest, image) => {
+                    if (image.height < smallest.height) return image
+                    return smallest
+                }, track.album.images[0])
+
+                return {
+                    artist: track.artists[0].name,
+                    title: track.name,
+                    uri: track.uri,
+                    albumUrl: smallestAlbumImage.url,
+                    id: track.id,
+                    color: '#cb1dd1'
                 }
             }))
         })

@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import Scatterplot from './Scatterplot'
+import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap'
 
 
 export default function ScatterplotDemo( {tracks, chooseTrack} ){
     /* parse the track here */
     const [data, setData] = useState([])
+    const [radioValue, setRadioValue] = useState('1')
 
     useEffect(() => {
         setData(tracks.map((track) => {
@@ -27,7 +29,18 @@ export default function ScatterplotDemo( {tracks, chooseTrack} ){
 
     console.log(data)
     return(
-        <Scatterplot data={data} width={700} height={700} chooseTrack={chooseTrack} />
+        <>
+        <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+            <ToggleButton id="tbg-radio-1" value={1} onChange={(e) => setRadioValue(e.currentTarget.value)}>
+                Acousticness vs Danceability
+            </ToggleButton>
+            <ToggleButton id="tbg-radio-2" value={2} onChange={(e) => setRadioValue(e.currentTarget.value)}>
+                Energy vs Valence
+            </ToggleButton>
+        </ToggleButtonGroup>
+        <Scatterplot data={data} width={700} height={700} chooseTrack={chooseTrack} setting={radioValue}/>
+        </>
+        
     )
 
 }
