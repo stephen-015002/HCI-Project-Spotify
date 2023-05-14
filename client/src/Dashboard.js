@@ -25,7 +25,7 @@ export default function Dashboard({code}) {
     function chooseTrack(track) {
         setPlayingTrack(track)
     }
-    
+
     function handleLogout() {
         sessionStorage.removeItem(accessToken)
         sessionStorage.removeItem(code)
@@ -48,6 +48,10 @@ export default function Dashboard({code}) {
                 }
             }))
         })
+    }
+
+    function emptyTopTracks() {
+        setTopTracks([])
     }
 
     function resetTopTracks() {
@@ -164,6 +168,8 @@ export default function Dashboard({code}) {
     <Container className="d-flex flex-column py-2" style={{height: '100vh'}}>
         <Form.Control type='search' placeholder='Search Songs/Artists' value={search} onChange={e => setSearch(e.target.value)} />
         <Button id='logout-button' onClick={handleLogout}> Logout </Button>
+        <Button id='emptytracks-button' onClick={emptyTopTracks}> Empty My Top Tracks </Button>
+        <Button id='resettracks-button' onClick={resetTopTracks}> Reset My Top Tracks </Button>
         <div className='flex-grow-1 my-2' style={{overflowY: 'auto'}}>
             {searchResults.map(track => (
                 <TrackSearchResult 
