@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 const TICK_LENGTH = 10;
 
-export default function AxisLeft({yScale, pixelsPerTick, width}) {
+export default function AxisLeft({yScale, pixelsPerTick, width, label}) {
     const range = yScale.range();
 
     const ticks = useMemo(() => {
@@ -16,8 +16,9 @@ export default function AxisLeft({yScale, pixelsPerTick, width}) {
     }, [yScale, pixelsPerTick, range]);
 
     return (
-        <>
-            {/* Ticks and labels */}
+        <>  
+            <text x={-10} y={20} fill="#ababab" fontSize={16} textRendering={"optimizeLegibility"}> &uarr; </text>
+            <text x={10} y={20} fill="#ababab" fontSize={16} textRendering={"optimizeLegibility"}>{label}</text>
             {ticks.map(({value, yOffset}) => (
                 <g 
                     key={value}

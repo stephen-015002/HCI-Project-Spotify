@@ -16,6 +16,15 @@ export default function Scatterplot({ width, height, data, chooseTrack, setting}
 
     const yScale = d3.scaleLinear().domain([-0.05,1]).range([boundsHeight, 0])
     const xScale = d3.scaleLinear().domain([-0.05,1]).range([0, boundsWidth])
+    var xLabel, yLabel
+    if(setting === '1') {
+        xLabel = 'Acousticness'
+        yLabel = 'Danceability'
+    }
+    else {
+        xLabel = 'Energy'
+        yLabel = 'Valence'
+    }
 
     const allShapes = data.map((d, i) => {
         var xValue, yValue
@@ -61,13 +70,14 @@ export default function Scatterplot({ width, height, data, chooseTrack, setting}
                     transform={`translate(${[MARGIN.left, MARGIN.top].join(",")})`}
                 >
                     {/* Y axis */}
-                    <AxisLeft yScale={yScale} pixelsPerTick={40} width={boundsWidth}/>
+                    <AxisLeft yScale={yScale} pixelsPerTick={40} width={boundsWidth} label={yLabel}/>
                     {/* X axis */}
                     <g transform={`translate(0, ${boundsHeight})`}>
                         <AxisBottom 
                             xScale={xScale}
                             pixelsPerTick={40}
                             height={boundsHeight}
+                            label={xLabel}
                         />
                     </g>
                     {/* Circles */}
