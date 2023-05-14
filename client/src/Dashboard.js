@@ -108,7 +108,7 @@ export default function Dashboard({code}) {
                     uri: track.uri,
                     albumUrl: smallestAlbumImage.url,
                     id: track.id,
-                    color: '#cb1dd1'
+                    color: "#2F8886"
                 }
             }))
         })
@@ -149,7 +149,7 @@ export default function Dashboard({code}) {
                     uri: track.uri,
                     albumUrl: smallestAlbumImage.url,
                     id: track.id,
-                    color: '#6689c6'
+                    color: "#D1D4C9"
                 }
             }))
         })
@@ -165,6 +165,7 @@ export default function Dashboard({code}) {
 
 
   return (
+    <div style={{backgroundColor: '#141414'}}>
     <Container className="d-flex flex-column py-2" style={{height: '100vh'}}>
         <Form.Control type='search' placeholder='Search Songs/Artists' value={search} onChange={e => setSearch(e.target.value)} />
         <Button id='logout-button' onClick={handleLogout}> Logout </Button>
@@ -194,5 +195,6 @@ export default function Dashboard({code}) {
         </div>
         <div><Player accessToken={accessToken} trackUri={playingTrack?.uri} /></div>
     </Container>
+    </div>
   )
 }
