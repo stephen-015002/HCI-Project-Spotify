@@ -14,6 +14,8 @@ export default function Tooltip({interactionData}) {
         <div>{interactionData.title}</div>
         <div>{interactionData.artist}</div>
         <img src={interactionData.albumUrl} style={{height: '64px', width: '64px'}} />
+        <div>{interactionData.xLabel}: {interactionData.xValue}</div>
+        <div>{interactionData.yLabel}: {interactionData.yValue}</div>
     </div>)
 
 }

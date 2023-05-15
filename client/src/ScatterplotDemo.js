@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import Scatterplot from './Scatterplot'
-import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap'
+import { ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap'
 
 
-export default function ScatterplotDemo( {tracks, chooseTrack} ){
+export default function ScatterplotDemo( {tracks, chooseTrack, emptyTopTracks, resetTopTracks} ){
     /* parse the track here */
     const [data, setData] = useState([])
     const [radioValue, setRadioValue] = useState('1')
@@ -29,14 +29,16 @@ export default function ScatterplotDemo( {tracks, chooseTrack} ){
     
     return(
         <>
+        <Button id='resettracks-button' variant="outline-success" onClick={resetTopTracks}> Reset My Top Tracks </Button> {'    '}
         <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-            <ToggleButton id="tbg-radio-1" value={1} onChange={(e) => setRadioValue(e.currentTarget.value)}>
+            <ToggleButton id="tbg-radio-1" variant="outline-success" value={1} onChange={(e) => setRadioValue(e.currentTarget.value)}>
                 Acousticness vs Danceability
             </ToggleButton>
-            <ToggleButton id="tbg-radio-2" value={2} onChange={(e) => setRadioValue(e.currentTarget.value)}>
+            <ToggleButton id="tbg-radio-2" variant="outline-success" value={2} onChange={(e) => setRadioValue(e.currentTarget.value)}>
                 Energy vs Valence
             </ToggleButton>
-        </ToggleButtonGroup>
+        </ToggleButtonGroup> {'   '}
+        <Button id='emptytracks-button' variant="outline-success" onClick={emptyTopTracks}> Empty My Top Tracks </Button> {'    '}
         <Scatterplot data={data} width={700} height={700} chooseTrack={chooseTrack} setting={radioValue}/>
         </>
         

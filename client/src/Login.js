@@ -12,7 +12,7 @@ export default function Login() {
       <h5 style={{color: '#D1D4C9'}}> Supported with Spotify Web API</h5>
   </Container>
     <Container className="d-flex justify-content-center align-items-center" style={{minHeight: "50vh"}}>
-    <a className="btn btn-success btn-lg" href={AUTH_URL}>
+    <a className="btn btn-outline-success btn-lg" href={AUTH_URL}>
         Login With spotify
     </a>
   </Container>

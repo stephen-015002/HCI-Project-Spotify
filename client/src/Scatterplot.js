@@ -52,7 +52,11 @@ export default function Scatterplot({ width, height, data, chooseTrack, setting}
                     yPos: yScale(yValue),
                     title: d.title,
                     artist: d.artist,
-                    albumUrl: d.albumUrl
+                    albumUrl: d.albumUrl,
+                    xLabel: xLabel,
+                    yLabel: yLabel,
+                    xValue: xValue,
+                    yValue: yValue
                 })}
                 onMouseLeave={() => setHovered(null)}
                 onMouseDown={() => handlePlay(d)}

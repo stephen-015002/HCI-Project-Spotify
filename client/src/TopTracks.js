@@ -3,7 +3,7 @@ import {Col, Card} from 'react-bootstrap'
 
 export default function topTracks( {track, chooseTrack} ) {
     function handlePlay() {
-        chooseTrack(track)
+        chooseTrack(track[0])
     }
   return (
     <Col>

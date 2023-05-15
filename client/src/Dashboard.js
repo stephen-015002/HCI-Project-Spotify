@@ -4,7 +4,7 @@ import Player from './Player'
 import TrackSearchResult from './TrackSearchResult'
 import TopTracks from './TopTracks'
 import ScatterplotDemo from './ScatterplotDemo'
-import {Button, Container, Form, Row} from 'react-bootstrap'
+import {Button, Container, Form, Row, Nav, Navbar, NavDropdown} from 'react-bootstrap'
 import SpotifyWebApi from 'spotify-web-api-node'
 import axios from 'axios'
 
@@ -69,7 +69,7 @@ export default function Dashboard({code}) {
                     uri: track.uri,
                     albumUrl: smallestAlbumImage.url,
                     id: track.id,
-                    color: '#cb1dd1'
+                    color: "#2F8886"
                 }
             }))
         })
@@ -167,8 +167,25 @@ export default function Dashboard({code}) {
   return (
     <div style={{backgroundColor: '#141414'}}>
     <Container className="d-flex flex-column py-2" style={{height: '100vh'}}>
-        <Form.Control type='search' placeholder='Search Songs/Artists' value={search} onChange={e => setSearch(e.target.value)} />
-        <Button id='logout-button' onClick={handleLogout}> Logout </Button>
+        <Navbar bg="dark" variant="dark" expand="lg">
+        <Container fluid>
+            <Navbar.Brand> Supported by Spotify Web API</Navbar.Brand>
+            <Navbar.Toggle aria-controls="navbarScroll" />
+            <Navbar.Collapse id="navbarScroll">
+            <Nav
+                className="me-auto my-2 my-lg-0"
+                style={{ maxHeight: '100px' }}
+                navbarScroll
+            >
+            </Nav>
+            <Form className="d-flex">
+                <Form.Control type='search' placeholder='Search Songs/Artists' className="me-2" value={search} onChange={e => setSearch(e.target.value)}/>
+                <Button id='logout-button' variant="outline-success" onClick={handleLogout}> Logout </Button>
+            </Form>
+            </Navbar.Collapse>
+        </Container>
+        </Navbar>
+        
         <div className='flex-grow-1 my-2' style={{overflowY: 'auto'}}>
             {searchResults.map(track => (
                 <TrackSearchResult 
@@ -179,16 +196,14 @@ export default function Dashboard({code}) {
             {searchResults.length === 0 && (
                 <>
                 <h1 style={{color: '#D1D4C9'}}> My Track Analytics</h1>
-                <Button id='emptytracks-button' onClick={emptyTopTracks}> Empty My Top Tracks </Button>
-                <Button id='resettracks-button' onClick={resetTopTracks}> Reset My Top Tracks </Button>
                 <div>
-                    <ScatterplotDemo tracks={trackAnalytics} chooseTrack={chooseTrack}/>
+                    <ScatterplotDemo tracks={trackAnalytics} emptyTopTracks={emptyTopTracks} resetTopTracks={resetTopTracks} chooseTrack={chooseTrack}/>
                 </div>
                 </>
             )}
             {searchResults.length === 0 && ( <>
                 <div>
-                    <h1 style={{color: '#D1D4C9'}}> My Top Songs</h1>
+                    <h1 style={{color: '#D1D4C9'}}> My Top Tracks</h1>
                 </div>
                 <Row xs={1} md={5} className="g-4">
                         {trackAnalytics.map(track => (
