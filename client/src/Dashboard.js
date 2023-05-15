@@ -4,7 +4,7 @@ import Player from './Player'
 import TrackSearchResult from './TrackSearchResult'
 import TopTracks from './TopTracks'
 import ScatterplotDemo from './ScatterplotDemo'
-import {Button, Container, Form} from 'react-bootstrap'
+import {Button, Container, Form, Row} from 'react-bootstrap'
 import SpotifyWebApi from 'spotify-web-api-node'
 import axios from 'axios'
 
@@ -169,8 +169,6 @@ export default function Dashboard({code}) {
     <Container className="d-flex flex-column py-2" style={{height: '100vh'}}>
         <Form.Control type='search' placeholder='Search Songs/Artists' value={search} onChange={e => setSearch(e.target.value)} />
         <Button id='logout-button' onClick={handleLogout}> Logout </Button>
-        <Button id='emptytracks-button' onClick={emptyTopTracks}> Empty My Top Tracks </Button>
-        <Button id='resettracks-button' onClick={resetTopTracks}> Reset My Top Tracks </Button>
         <div className='flex-grow-1 my-2' style={{overflowY: 'auto'}}>
             {searchResults.map(track => (
                 <TrackSearchResult 
@@ -181,6 +179,8 @@ export default function Dashboard({code}) {
             {searchResults.length === 0 && (
                 <>
                 <h1 style={{color: '#D1D4C9'}}> My Track Analytics</h1>
+                <Button id='emptytracks-button' onClick={emptyTopTracks}> Empty My Top Tracks </Button>
+                <Button id='resettracks-button' onClick={resetTopTracks}> Reset My Top Tracks </Button>
                 <div>
                     <ScatterplotDemo tracks={trackAnalytics} chooseTrack={chooseTrack}/>
                 </div>
@@ -190,13 +190,14 @@ export default function Dashboard({code}) {
                 <div>
                     <h1 style={{color: '#D1D4C9'}}> My Top Songs</h1>
                 </div>
-                <div className="text-center" style={{whiteSpace: "pre"}}>
+                <Row xs={1} md={5} className="g-4">
                         {trackAnalytics.map(track => (
                             <TopTracks
                             track={track}
+                            chooseTrack={chooseTrack}
                             />
                         ))}
-                </div>
+                </Row>
                 </>
             )}
         </div>
