@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Scatterplot from './Scatterplot'
-import { ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap'
+import { ToggleButtonGroup, ToggleButton, ButtonGroup, Button, OverlayTrigger, Popover } from 'react-bootstrap'
 
 
 export default function ScatterplotDemo( {tracks, chooseTrack, emptyTopTracks, resetTopTracks} ){
@@ -30,14 +30,44 @@ export default function ScatterplotDemo( {tracks, chooseTrack, emptyTopTracks, r
     return(
         <>
         <Button id='resettracks-button' variant="outline-success" onClick={resetTopTracks}> Reset My Top Tracks </Button> {'    '}
-        <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-            <ToggleButton id="tbg-radio-1" variant="outline-success" value={1} onChange={(e) => setRadioValue(e.currentTarget.value)}>
+        <ButtonGroup type="buttons">
+        <OverlayTrigger
+          trigger="hover"
+          variant="secondary"
+          placement="bottom"
+          key= "bottom"
+          overlay={
+            <Popover id="popover-positioned-bottom">
+              <Popover.Header as="h3"> What does this mean ? </Popover.Header>
+              <Popover.Body>
+                <strong>Acousticness</strong> refers to a measure from 0.0 to 1.0 of whether the track is acoustic. <br/> <strong>Danceability</strong> refers to a measure from 0.0 to 1.0 of how suitable the track is for dancing based on a combination of musical elements.
+              </Popover.Body>
+            </Popover>
+          }
+        >
+            <Button id="b-1" variant="outline-success" value={1} onClick={(e) => setRadioValue(e.currentTarget.value)}>
                 Acousticness vs Danceability
-            </ToggleButton>
-            <ToggleButton id="tbg-radio-2" variant="outline-success" value={2} onChange={(e) => setRadioValue(e.currentTarget.value)}>
+            </Button>
+        </OverlayTrigger>
+        <OverlayTrigger
+          trigger="hover"
+          variant="secondary"
+          placement="bottom"
+          key= "bottom"
+          overlay={
+            <Popover id="popover-positioned-bottom">
+              <Popover.Header as="h3"> What does this mean ? </Popover.Header>
+              <Popover.Body>
+                <strong>Energy</strong> refers to a measure from 0.0 to 1.0 of the intensity and energy of the track. Typically, energetic tracks feel fast, loud and noisy. <br/> <strong>Valence</strong> refers to a measure from 0.0 to 1.0 of the musical positiveness conveyed by a track. Typically, tracks with high valence sound more positive, while tracks with low valence sound more negative.
+              </Popover.Body>
+            </Popover>
+          }
+        >
+            <Button id="b-2" variant="outline-success" value={2} onClick={(e) => setRadioValue(e.currentTarget.value)}>
                 Energy vs Valence
-            </ToggleButton>
-        </ToggleButtonGroup> {'   '}
+            </Button>
+        </OverlayTrigger>
+        </ButtonGroup> {'   '}
         <Button id='emptytracks-button' variant="outline-success" onClick={emptyTopTracks}> Empty My Top Tracks </Button> {'    '}
         <Scatterplot data={data} width={700} height={700} chooseTrack={chooseTrack} setting={radioValue}/>
         </>
