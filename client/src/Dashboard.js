@@ -4,7 +4,7 @@ import Player from './Player'
 import TrackSearchResult from './TrackSearchResult'
 import TopTracks from './TopTracks'
 import ScatterplotDemo from './ScatterplotDemo'
-import {Button, Container, Form, Row, Nav, Navbar, NavDropdown} from 'react-bootstrap'
+import {Button, Container, Form, Row, Nav, Navbar} from 'react-bootstrap'
 import SpotifyWebApi from 'spotify-web-api-node'
 import axios from 'axios'
 
