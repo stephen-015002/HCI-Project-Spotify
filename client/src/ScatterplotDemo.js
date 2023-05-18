@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Scatterplot from './Scatterplot'
-import { ToggleButtonGroup, ToggleButton, ButtonGroup, Button, OverlayTrigger, Popover } from 'react-bootstrap'
+import { ButtonGroup, Button, OverlayTrigger, Popover } from 'react-bootstrap'
 
 
 export default function ScatterplotDemo( {tracks, chooseTrack, emptyTopTracks, resetTopTracks} ){
